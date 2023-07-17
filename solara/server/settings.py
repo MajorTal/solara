@@ -156,7 +156,12 @@ assets = Assets()
 oauth = OAuth()
 session = Session()
 
-assets.proxy_cache_dir.mkdir(exist_ok=True, parents=True)
+try:
+    assets.proxy_cache_dir.mkdir(exist_ok=True, parents=True)
+except PermissionError:
+    # that's ok, the user probably doesn't have permission to create the directory
+    # in this case, we would need to install solara-assets?
+    pass
 
 if telemetry.server_user_id == "not_set":
     home = get_solara_home()
