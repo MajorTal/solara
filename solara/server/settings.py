@@ -158,7 +158,7 @@ session = Session()
 
 try:
     assets.proxy_cache_dir.mkdir(exist_ok=True, parents=True)
-except PermissionError:
+except (OSError, PermissionError):
     # that's ok, the user probably doesn't have permission to create the directory
     # in this case, we would need to install solara-assets?
     pass
