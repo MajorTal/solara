@@ -381,7 +381,7 @@ routes = [
     Route("/", endpoint=root),
     Route("/{fullpath}", endpoint=root),
     Route("/_solara/api/close/{connection_id}", endpoint=close, methods=["POST"]),
-    Mount(f"/{cdn_url_path}", app=StaticCdn(directory=settings.assets.proxy_cache_dir)),
+    *([Mount(f"/{cdn_url_path}", app=StaticCdn(directory=settings.assets.proxy_cache_dir))] if settings.assets.proxy_cache_dir.exists() else []),
     Mount(f"{prefix}/static/public", app=StaticPublic()),
     Mount(f"{prefix}/static/assets", app=StaticAssets()),
     Mount(f"{prefix}/static/nbextensions", app=StaticNbFiles()),
